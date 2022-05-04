@@ -41,12 +41,15 @@ def printResults(results):
     options = ('Share Result | href={7}' +
                      '\nRefresh | refresh=True').format(*results)
 
-
     print(header)
     print('\n---\n')
     print(body)
     print('\n---\n')
     print(options)
 
-
-printResults(runSpeedtest())
+try:
+    printResults(runSpeedtest())
+except FileNotFoundError as error:
+    print('speedtest-cli is missing')
+except:
+    pass
