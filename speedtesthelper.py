@@ -14,9 +14,9 @@ def runSpeedtest():
 def processPayload(payload):
     speedtestJson = json.loads(payload)
 
+    stringDownload = str(round(float(speedtestJson['download']/1e+6)))
+    stringUpload = str(round(float(speedtestJson['upload']/1e+6)))
     ping = speedtestJson['ping']
-    download = speedtestJson['download']/1e+6
-    upload = speedtestJson['upload']/1e+6
     serverName = speedtestJson['server']['name']
     serverCountry = speedtestJson['server']['cc']
     serverSponsor = speedtestJson['server']['sponsor']
@@ -24,16 +24,13 @@ def processPayload(payload):
 
     testTime = datetime.now().strftime("%H:%M:%S")
 
-    stringDownload = str(round(float(download)))
-    stringUpload = str(round(float(upload)))
-
     args = (stringDownload, stringUpload, ping, serverSponsor,
             serverName, serverCountry, testTime, shareUrl)
 
     header = (
         '{0} :icloud.and.arrow.down: {1} :icloud.and.arrow.up:').format(*args)
 
-    body = ('Ping: {2}' +
+    body = ('Ping: {2} ms' +
             '\nServer: {3} - {4}/{5}' +
             '\nLast Test: {6}'
             ).format(*args)
