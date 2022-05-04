@@ -7,8 +7,7 @@ import json
 def runSpeedtest():
     speedtestResponse = subprocess.run(
         ['/opt/homebrew/bin/speedtest', '--json', '--share'], capture_output=True, text=True).stdout
-    header, body, options = processPayload(speedtestResponse)
-    return header, body, options
+    return processPayload(speedtestResponse)
 
 
 def processPayload(payload):
@@ -24,24 +23,25 @@ def processPayload(payload):
 
     testTime = datetime.now().strftime("%H:%M:%S")
 
-    args = (stringDownload, stringUpload, ping, serverSponsor,
+    results = (stringDownload, stringUpload, ping, serverSponsor,
             serverName, serverCountry, testTime, shareUrl)
 
+    return results
+
+
+def printResults(results):
     header = (
-        '{0} :icloud.and.arrow.down: {1} :icloud.and.arrow.up:').format(*args)
+        '{0} :icloud.and.arrow.down: {1} :icloud.and.arrow.up:').format(*results)
 
     body = ('Ping: {2} ms' +
             '\nServer: {3} - {4}/{5}' +
             '\nLast Test: {6}'
-            ).format(*args)
+            ).format(*results)
 
-    optionsOutput = ('Share Result | href={7}' +
-                     '\nRefresh | refresh=True').format(*args)
-
-    return header, body, optionsOutput
+    options = ('Share Result | href={7}' +
+                     '\nRefresh | refresh=True').format(*results)
 
 
-def printResults(header, body, options):
     print(header)
     print('\n---\n')
     print(body)
@@ -49,5 +49,4 @@ def printResults(header, body, options):
     print(options)
 
 
-header, body, options = runSpeedtest()
-printResults(header, body, options)
+printResults(runSpeedtest())
