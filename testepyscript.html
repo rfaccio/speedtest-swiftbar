@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <py-env>
+      - paths:
+        - /speedtesthelper.py
+    </py-env>
+  </head>
+  <body>
+    <py-script> print('Hello, World!') </py-script>
+    <py-script> from speedtesthelper import runSpeedtest
+header, body = runSpeedtest()
+print(header)
+    </py-script>
+  </body>
+</html>
