@@ -1,0 +1,3 @@
+# Requirements:
+- homebrew
+- speedtest-cli
