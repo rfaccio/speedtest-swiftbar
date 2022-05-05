@@ -1,7 +1,15 @@
+#! /usr/bin/python3
+
+# <xbar.title>Speedtest</xbar.title>
+# <xbar.version>v1.0</xbar.version>
+# <xbar.author>Rafael Faccio</xbar.author>
+# <xbar.author.github>rfaccio</xbar.author.github>
+# <xbar.desc>Displays latest network speed test using speedtest-cli</xbar.desc>
+# <swiftbar.hideRunInTerminal>true</swiftbar.hideRunInTerminal>
+
 from datetime import datetime
 import subprocess
 import json
-
 
 def runSpeedtest():
     speedtestResponse = subprocess.run(
@@ -45,6 +53,7 @@ def printResults(results):
     print(body)
     print('\n---\n')
     print(options)
+
 
 try:
     printResults(runSpeedtest())
